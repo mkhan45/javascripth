@@ -62,7 +62,7 @@ class Interpreter {
 
             if (key === 'def') {
                 for (const name in args) {
-                    this.state[name] = i.eval(args[name]);
+                    this.state[name] = this.eval(args[name]);
                 }
                 return;
             }
@@ -90,6 +90,11 @@ class Interpreter {
                 }
             }
 
+            if (key === 'print') {
+                console.log(this.eval(args));
+                return;
+            }
+
             if (args.map)
                 args = args.map(e => this.eval(e));
             if (key in this.state && typeof this.state[key] === 'function') {
@@ -105,44 +110,47 @@ class Interpreter {
     }
 }
 
-const i = new Interpreter();
-let thirty = {'+': [5, 10, 15]};
-let thirty_mul_3 = {'*': [thirty, 3]};
+// const i = new Interpreter();
+// let thirty = {'+': [5, 10, 15]};
+// let thirty_mul_3 = {'*': [thirty, 3]};
 
-let set_a_5 = {def: {a: 5}};
-i.eval(set_a_5);
+// let set_a_5 = {def: {a: 5}};
+// i.eval(set_a_5);
 
-let fn_def = {fn: {'*': ['a', 2]}};
-i.eval({def: {f: fn_def}});
-let res = i.eval({f: {a: {f: {a: 12}}}});
-console.log(`48: ${res}`);
+// let fn_def = {fn: {'*': ['a', 2]}};
+// i.eval({def: {f: fn_def}});
+// let res = i.eval({f: {a: {f: {a: 12}}}});
+// console.log(`48: ${res}`);
 
-fn_def = {fn: [['i', 'j'], {'*': ['i', 'j']}]}
-i.eval({def: {f1: fn_def}});
-res = i.eval({f1: [2, 3]});
-console.log(`6: ${res}`);
+// fn_def = {fn: [['i', 'j'], {'*': ['i', 'j']}]}
+// i.eval({def: {f1: fn_def}});
+// res = i.eval({f1: [2, 3]});
+// console.log(`6: ${res}`);
 
-let fact_expr = {'if': {cond: {eq: ['n', 1]}, then: 1, else: {'*': ['n', {fact: [{'-': ['n', 1]}]}]}}};
-i.eval({def: {fact: {fn: [['n'], fact_expr]}}});
-res = i.eval({fact: [5]})
-console.log(`120: ${res}`);
+// let fact_expr = {'if': {cond: {eq: ['n', 1]}, then: 1, else: {'*': ['n', {fact: [{'-': ['n', 1]}]}]}}};
+// i.eval({def: {fact: {fn: [['n'], fact_expr]}}});
+// res = i.eval({fact: [5]})
+// console.log(`120: ${res}`);
 
-let m_is_0 = {eq: ['m', 0]}
-let n_is_0 = {eq: ['n', 0]}
-let ack_expr = {
-   'if': {
-       cond: m_is_0, 
-       then: {'+': ['n', 1]},
-       else: {
-           'if': {
-               cond: n_is_0,
-               then: {'ack': [{'-': ['m', 1]}, 1]},
-               else: {'ack': [
-                    {'-': ['m', 1]},
-                    {'ack': ['m', {'-': ['n', 1]}]},
-               ]}
-           }
-       }
-   }
-}
-i.eval({def: {ack: {fn: [['m', 'n'], ack_expr]}}});
+// let m_is_0 = {eq: ['m', 0]}
+// let n_is_0 = {eq: ['n', 0]}
+// let ack_expr = {
+//    'if': {
+//        cond: m_is_0, 
+//        then: {'+': ['n', 1]},
+//        else: {
+//            'if': {
+//                cond: n_is_0,
+//                then: {'ack': [{'-': ['m', 1]}, 1]},
+//                else: {'ack': [
+//                     {'-': ['m', 1]},
+//                     {'ack': ['m', {'-': ['n', 1]}]},
+//                ]}
+//            }
+//        }
+//    }
+// }
+// i.eval({def: {ack: {fn: [['m', 'n'], ack_expr]}}});
+
+
+export { Interpreter }
