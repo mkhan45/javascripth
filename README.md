@@ -1,5 +1,5 @@
 # javascripth
-JSON lisp
+Lispy JSON evaluator
 
 ex:
 calculate the 10th fibonacci number
@@ -22,7 +22,7 @@ calculate the 10th fibonacci number
 
 what?
 
-The premier no-code markup language. If you can read and write JSON but don't know how to code, javascripth is the language for you.
+The premier no-code programming language. If you can read and write JSON but don't know how to code, javascripth is the language for you.
 
 why?
 
