@@ -1,0 +1,30 @@
+[
+    {"def": {"range": {"fn": [["n"],
+        {"if": {
+            "cond": {"eq": ["n", 0]},
+            "then": [],
+            "else": {"concat": [["n"], {"range": [{"-": ["n", 1]}]}]}
+        }}
+    ]}}},
+    {"def": {"filter": {"fn": [["ls", "f"],
+        {"if": {
+            "cond": {"eq": ["ls", []]},
+            "then": [],
+            "else": {
+                "if": {
+                    "cond": {"f": [{"head": "ls"}]},
+                    "then": {"concat": [[{"head": "ls"}], {"filter": [{"tail": "ls"}, "f"]}]},
+                    "else": {"filter": [{"tail": "ls"}, "f"]}
+                }
+            }
+        }}
+    ]}}},
+    {"def": {"ls": {"range": [9]}}},
+    {"def": {"pred": {"fn": [["n"], {
+        "or": [
+            {"eq": [0, {"mod": ["n", 3]}]},
+            {"eq": [0, {"mod": ["n", 5]}]}
+        ]
+    }]}}},
+    {"print": {"+": {"filter": ["ls", "pred"]}}}
+]
